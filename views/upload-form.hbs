@@ -1,0 +1,12 @@
+{{> head }}
+
+{{> navbar }}
+<div class="container">
+    Upload file
+    <form action="/upload-form" method="POST" encType="multipart/form-data">
+        <input type="file" name="file" accept="*.csv" /><br /><br />
+        <input type="submit" value="Upload CSV" />
+    </form>
+    {{ result }}
+</div>
+{{> footer }}

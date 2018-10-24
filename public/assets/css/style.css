@@ -1,0 +1,15 @@
+.gluco-high{
+    background-color: red;
+    color: #fff;
+}
+
+.gluco-low{
+    background-color: yellow;
+}
+
+.card-wrapper{
+    display: inline-block;
+    padding: 5px;
+    text-align: center;
+    width: 14.2857%
+}
