@@ -24,7 +24,7 @@ app.post('/upload-form', function (req, res) {
 
     const usuarioFile = req.files.file;
     let glucoData = [];
-console.log(req)
+
     csv
         .fromString(usuarioFile.data.toString(), {
             headers: false,
@@ -35,7 +35,8 @@ console.log(req)
         })
         .on('data', function (data) {
             //data['_id'] = new mongoose.Types.ObjectId();
-            glucoData.push(data);
+            glucoData.push(data[2] + ' ' + data[14]);
+            //glucoData.push(new glucoObject(data[2], data[14]));
         })
         .on('end', function () {
             console.log('end')
@@ -47,13 +48,19 @@ console.log(req)
                     });
                 }
                 //usuarioBD.glucoData = body.data;
-                console.log(id, usuarioBD.data);
+                console.log(id, glucoData);
             })
             //res.send(userData.length + ' data have been uploaded')
             res.render('upload-form', {
-                result: glucoData.length + ' data have been uploaded \n' + JSON.stringify(glucoData)
+                result: glucoData.length + ' data have been uploaded <br>' + glucoData
             })
         })
 });
+
+function glucoObject(time, value) {
+    //this.day = day,
+        this.time = time,
+        this.value = value
+}
 
 module.exports = app;
