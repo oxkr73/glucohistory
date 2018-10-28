@@ -22,9 +22,15 @@ hbs.registerPartials(__dirname + '/views/partials')
 app.set('view engine', 'hbs');
 
 app.use( require('./server/routes/usuario'))
+app.use( require('./server/routes/gluco-history'))
+app.use( require('./server/routes/gluco-chart'))
 app.use( require('./server/routes/upload-form'))
 
-mongoose.connect('mongodb://localhost:27017/gluco', { useCreateIndex: true,useNewUrlParser: true }, (err, res) => {
+mongoose.connect(
+    'mongodb://localhost:27017/gluco',
+    { useCreateIndex: true,useNewUrlParser: true },
+
+    (err, res) => {
     if(err) throw err;
 
     console.log('Base de datos ONLINE');

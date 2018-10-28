@@ -18897,14 +18897,16 @@ $('#btn-clickme').on('click', function() {
 
 const Chart = require('chart.js');
 const ctx = document.getElementById("gluco-chart");
+const dataDates = ctx.getAttribute("data-dates").split(',');
+const dataValues = ctx.getAttribute("data-values").split(',');
 if (ctx) {
     const glucoChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            labels: dataDates,
             datasets: [{
-                label: '# of Votes',
-                data: [250, 220, 160, 180, 80, 110],
+                label: 'gluco values',
+                data: dataValues,
                 fill: false,
                 /*backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
