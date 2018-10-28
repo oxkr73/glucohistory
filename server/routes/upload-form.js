@@ -1,9 +1,9 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
-const Usuario = require('../models/usuario')
+const Usuario = require('../models/usuario');
 const app = express();
-const csv = require('fast-csv')
+const csv = require('fast-csv');
 
 app.use(fileUpload());
 
@@ -35,12 +35,13 @@ app.post('/upload-form', function (req, res) {
         })
         .on('data', function (data) {
             //data['_id'] = new mongoose.Types.ObjectId();
-            glucoData.push(data[2] + ' ' + data[14]);
-            //glucoData.push(new glucoObject(data[2], data[14]));
+            //glucoData.push(data[2] + ' ' + data[14]);
+            glucoData.push(new glucoObject(data[2], data[14]));
         })
         .on('end', function () {
             console.log('end')
-            Usuario.findOneAndUpdate(id, {glucoData:glucoData}, {new: true}, (err, usuarioBD) => {
+            glucoDataClean = glucoData.splice(2);
+            Usuario.findOneAndUpdate(id, {glucoData:glucoDataClean}, {new: true}, (err, usuarioBD) => {
                 if (err){
                     return res.status(400).json({
                         ok: false,
@@ -48,11 +49,9 @@ app.post('/upload-form', function (req, res) {
                     });
                 }
                 //usuarioBD.glucoData = body.data;
-                console.log(id, glucoData);
             })
-            //res.send(userData.length + ' data have been uploaded')
             res.render('upload-form', {
-                result: glucoData.length + ' data have been uploaded <br>' + glucoData
+                result: glucoData.length + ' data have been uploaded <br>' + JSON.stringify(glucoData)
             })
         })
 });

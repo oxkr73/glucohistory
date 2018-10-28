@@ -23,18 +23,15 @@ hbs.registerHelper('glucoList', (items, options) => {
             glucoAlert = 'gluco-low';
         }
 
-
-        if (idx > 1) {
-            if (idx == 2){
-                for (let index = 0; index < getWeekday(dateToTimestamp(itemDay[0])); index++) {
-                    out += '<li class="card-wrapper"></li>';
-                }
+        if (idx == 0) {
+            for (let index = 0; index < getWeekday(dateToTimestamp(itemDay[0])); index++) {
+                out += '<li class="card-wrapper"></li>';
             }
-            out += isLowerDay ? '<li class="card-wrapper"><div class="card">' : '';
-            out += isLowerDay ? '<div class="card-header">' + itemDay[0] + '</div>' : '';
-            out += isLowerDay || isSameDay ? '<div>' + itemDay[1] + ' => <span class="' + glucoAlert + '">' + glucoValue + '</span></div>' : '';
-            out += isLowerDay ? (isSameDay ? '</div></li>' : '') : '';
         }
+        out += isLowerDay ? '<li class="card-wrapper"><div class="card">' : '';
+        out += isLowerDay ? '<div class="card-header">' + itemDay[0] + '</div>' : '';
+        out += isLowerDay || isSameDay ? '<div>' + itemDay[1] + ' => <span class="' + glucoAlert + '">' + glucoValue + '</span></div>' : '';
+        out += isLowerDay ? (isSameDay ? '</div></li>' : '') : '';
 
         lastDate = itemDay[0];
     })

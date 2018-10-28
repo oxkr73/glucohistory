@@ -16,38 +16,12 @@ hbs.registerHelper('glucoChart', (items) => {
         if (sampleValue > 0) {
             resultValues.push(sampleValue);
         }
-        if (idx > 1) {
-            resultDates.push(sampleDate[0]);
-        }
+        resultDates.push(sampleDate[0]);
         out += JSON.stringify(sampleDate[0]);
     })
     out += '</ul>';
 
     let graph = `<canvas id="gluco-chart" width="400" height="400" data-dates="${resultDates}" data-values="${resultValues}"></canvas>`;
-    /*const glucoChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: resultDates,
-            datasets: [{
-                label: 'glucosa',
-                data: resultValues,
-                fill: false,
-                borderColor: [
-                    'rgba(255,99,132,1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        //beginAtZero: true
-                    }
-                }]
-            }
-        }
-    })*/
 
     return graph;
 })
