@@ -13,3 +13,9 @@
     text-align: center;
     width: 14.2857%
 }
+
+.main-footer{
+    display: inline-block;
+    width: 100%;
+    padding-top: 50px;
+}

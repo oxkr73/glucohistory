@@ -47,7 +47,7 @@ app.get('/gluco-chart', (req, res) => {
                     err
                 });
             }
-            console.log(usuario[0])
+            //console.log(usuario[0])
             res.render('../views/gluco-chart', {
                 ok: true,
                 data: usuario[0].glucoData

@@ -18915,9 +18915,12 @@ if (ctx) {
         },
         options: {
             scales: {
-                yAxes: [{
-                    ticks: {
-                        //beginAtZero: true
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            day: 'MMM D'
+                        }
                     }
                 }]
             },
@@ -18927,36 +18930,31 @@ if (ctx) {
     })
 }
 
-$('#last-month-btn').on('click', function () {
+ctx.style.width = '100%';
+ctx.style.height = '600px';
+
+$('.last-n-btn').on('click', function () {
+    const nDays = Number($(this).data('last'));
     const today = new Date();
     const lastDayData = dataDates.slice(dataDates.length - 1);
-    const last30days = dataDates.slice(dataDates.length - 30);
-    const last30values = dataValues.slice(dataValues.length - 30);
+    const lastNdays = dataDates.slice(dataDates.length - nDays);
+    const lastNvalues = dataValues.slice(dataValues.length - nDays);
     today.setDate(1);
     today.setMonth(today.getMonth() - 1);
-    console.log(lastDayData.slice(lastDayData.length - 30));
 
-    addData(chart, last30days, last30values)
+    removeData(chart);
+    addData(chart, lastNdays, lastNvalues);
+    chart.update();
+
 });
 
 function addData(chart, label, data) {
-    console.log(chart, label, data)
-    chart.data.labels.pop();
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
-    });
-    chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-    });
-    chart.update();
+    chart.data.labels = label;
+    chart.data.datasets[0].data = data;
 }
 
 function removeData(chart) {
-    chart.data.labels.pop();
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
-    });
-    chart.update();
+    chart.data.labels = [];
+    chart.data.datasets[0].data = [];
 }
 },{"chart.js":1}]},{},[59]);

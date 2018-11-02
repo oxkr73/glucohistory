@@ -4,7 +4,11 @@
 
 <div class="container">
     <h1>GlucoChart</h1>
-    <div><button id="last-month-btn">last 30 days</button></div>
+    <div>
+        <button class="last-n-btn" id="last-30-btn" data-last="30">last 30 days</button>
+        <button class="last-n-btn" id="last-60-btn" data-last="60">last 60 days</button>
+        <button class="last-n-btn" id="last-90-btn" data-last="90">last 90 days</button>
+        </div>
     {{{glucoChart data }}}
 </div>
 
