@@ -9,12 +9,13 @@ hbs.registerPartials(__dirname + '/views/partials')
 hbs.registerHelper('glucoList', (items, options) => {
 
     var out = '<ul id="gluco-container" class="list-unstyled">';
-    var lastDate = '01/01/1970';
+    var lastDate = new Date('1970-01-01');
     items.forEach((item, idx) => {
 
-        const itemDay = item.time ? item.time.replace(/-/g, '/').split(' ') : '0';
-        const isSameDay = dateToTimestamp(lastDate) == dateToTimestamp(itemDay[0]);
-        const isLowerDay = dateToTimestamp(lastDate) < dateToTimestamp(itemDay[0]);
+        const itemDay = item.time;
+        const fullDate = itemDay.getDate() + '/' + (itemDay.getMonth() + 1) + '/' + itemDay.getFullYear();
+        const isSameDay = lastDate.getDay() == itemDay.getDay();
+        const notSameDay = lastDate.getDay() != itemDay.getDay();
         const glucoValue = Number(item.value);
         let glucoAlert = '';
         if (glucoValue > 180) {
@@ -24,23 +25,23 @@ hbs.registerHelper('glucoList', (items, options) => {
         }
 
         if (idx == 0) {
-            for (let index = 0; index < getWeekday(dateToTimestamp(itemDay[0])); index++) {
+            for (let index = 1; index < getWeekday(itemDay.getTime()); index++) {
                 out += '<li class="card-wrapper"></li>';
             }
         }
-        out += isLowerDay ? '<li class="card-wrapper"><div class="card">' : '';
-        out += isLowerDay ? '<div class="card-header">' + itemDay[0] + '</div>' : '';
-        out += isLowerDay || isSameDay ? '<div>' + itemDay[1] + ' => <span class="' + glucoAlert + '">' + glucoValue + '</span></div>' : '';
-        out += isLowerDay ? (isSameDay ? '</div></li>' : '') : '';
+        out += notSameDay ? '<li class="card-wrapper"><div class="card">' : '';
+        out += notSameDay ? '<div class="card-header">' + fullDate + '</div>' : '';
+        out += '<div>' + itemDay.getHours() + ':' + itemDay.getMinutes() + ' => <span class="' + glucoAlert + '">' + glucoValue + '</span></div>';
+        out += notSameDay ? (isSameDay ? '</div></li>' : '') : '';
 
-        lastDate = itemDay[0];
+        lastDate = itemDay;
     })
     return out += '</ul>';
 })
 
 app.get('/glucohistory', (req, res) => {
-    Usuario.findOne({})
-        .exec((err, usuarios) => {
+    Usuario.find({ email: "oscar1@oxkr.es" })
+        .exec((err, usuario) => {
             if (err) {
                 return res.status(400).json({
                     ok: false,
@@ -50,7 +51,7 @@ app.get('/glucohistory', (req, res) => {
 
             res.render('../views/glucohistory', {
                 ok: true,
-                data: usuarios.glucoData
+                data: usuario[0].glucoData
             });
         })
 })

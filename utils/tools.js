@@ -23,7 +23,7 @@ const dateToTimestamp = (date) => {
     return new Date(dateReverse).getTime() ? new Date(dateReverse).getTime() : '0';
 };
 
-const getWeekday = (date) => new Date(date).getUTCDay();
+const getWeekday = (date) => new Date(date).getDay();
 
 module.exports = {
     csv_to_array,

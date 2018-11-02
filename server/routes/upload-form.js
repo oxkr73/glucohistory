@@ -30,19 +30,19 @@ app.post('/upload-form', function (req, res) {
             headers: false,
             ignoreEmpty: true
         })
-        .on("data-invalid", function(data){
+        .on("data-invalid", function (data) {
             console.log('data-invalid')
         })
         .on('data', function (data) {
             //data['_id'] = new mongoose.Types.ObjectId();
             //glucoData.push(data[2] + ' ' + data[14]);
-            glucoData.push(new glucoObject(data[2], data[14]));
+            glucoData.push(new glucoObject(toIsoDate(data[2]), Number(data[14])));
         })
         .on('end', function () {
             console.log('end')
             glucoDataClean = glucoData.splice(2);
-            Usuario.findOneAndUpdate(id, {glucoData:glucoDataClean}, {new: true}, (err, usuarioBD) => {
-                if (err){
+            Usuario.findOneAndUpdate(id, { glucoData: glucoDataClean }, { new: true }, (err, usuarioBD) => {
+                if (err) {
                     return res.status(400).json({
                         ok: false,
                         err
@@ -58,8 +58,14 @@ app.post('/upload-form', function (req, res) {
 
 function glucoObject(time, value) {
     //this.day = day,
-        this.time = time,
+    this.time = time,
         this.value = value
+}
+
+function toIsoDate(string) {
+    const dateSplit = string.split(' ');
+    const dateFormated = dateSplit[0].split('-').reverse().join('/');
+    return new Date(dateFormated + ' ' + dateSplit[1]);
 }
 
 module.exports = app;
