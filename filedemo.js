@@ -52,7 +52,7 @@ function glucoObject(day, time, value) {
         this.value = value
 }
 
-importFile.parseFile('./public/assets/oscarcastel_18-09-2018.csv', (err, data) => {
+importFile.parseFile('./public/assets/oscarcastel_manual.csv', (err, data) => {
     if (err) {
         throw new Error('Error: ' + err)
     }

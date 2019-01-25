@@ -1,21 +1,64 @@
-.gluco-high{
-    background-color: red;
-    color: #fff;
+.gluco-high {
+  color: crimson;
 }
 
-.gluco-low{
-    background-color: yellow;
+.gluco-low {
+  color: mediumblue;
+}
+.card div:not(.card-header) {
+  color: #666666;
+}
+.card-wrapper {
+  display: inline-block;
+  padding: 5px;
+  text-align: center;
+  width: 14.2857%;
 }
 
-.card-wrapper{
-    display: inline-block;
-    padding: 5px;
-    text-align: center;
-    width: 14.2857%
+.main-footer {
+  display: inline-block;
+  width: 100%;
+  padding-top: 50px;
 }
 
-.main-footer{
-    display: inline-block;
+@media (max-width: 768px) {
+  .card-wrapper {
     width: 100%;
-    padding-top: 50px;
+  }
+}
+
+/*Card list*/
+.user-name {
+  padding: 15px;
+}
+.card-wrapper-list:not(.no-border) {
+  border-top: 1px solid #ccc;
+  padding: 5px 0;
+}
+
+.card-header-date {
+  display: inline-block;
+  padding: 0 15px;
+  top: -23px;
+  position: relative;
+  min-width: 110px;
+}
+
+.sample {
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.sample-value {
+  display: block;
+}
+
+.day-average {
+  position: absolute;
+  right: 0;
+  text-align: right;
+}
+
+.day-average small {
+  color: initial;
 }
